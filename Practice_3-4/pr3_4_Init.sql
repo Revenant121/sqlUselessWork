@@ -50,3 +50,5 @@ CREATE TABLE История_работы (
         ON UPDATE CASCADE
         ON DELETE CASCADE
 );
+
+ALTER TABLE Должности ADD Оклад DECIMAL(10, 2);
