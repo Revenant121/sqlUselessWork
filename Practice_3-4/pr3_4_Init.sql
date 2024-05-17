@@ -1,46 +1,52 @@
 -- sqlUseless
-ALTER TABLE Штаты
-DROP CONSTRAINT FK_Штаты_Отделы;
+CREATE TABLE Сотрудники (
+    Номер_сотр INT PRIMARY KEY,
+    Имя_сотрудник NVARCHAR(50),
+    Фамилия_сотр NVARCHAR(50),
+    Отчество_сотр NVARCHAR(50),
+    Пол CHAR(1),
+    Дата_рождения DATE,
+    Телефон NVARCHAR(15),
+    Образование NVARCHAR(50)
+);
 
-ALTER TABLE Штаты
-DROP CONSTRAINT FK_Штаты_Должности;
+CREATE TABLE Отделы (
+    Номер_отдела INT PRIMARY KEY,
+    Название_отдела NVARCHAR(100)
+);
 
-ALTER TABLE Штаты
-ADD CONSTRAINT FK_Штаты_Отделы
-FOREIGN KEY (Номер_отдела) REFERENCES Отделы (Номер_отдела)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+CREATE TABLE Должности (
+    Номер_должности INT PRIMARY KEY,
+    Название_должности NVARCHAR(100)
+);
 
-ALTER TABLE Штаты
-ADD CONSTRAINT FK_Штаты_Должности
-FOREIGN KEY (Номер_должности) REFERENCES Должности (Номер_должности)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+CREATE TABLE Штаты (
+    Номер_отдела INT,
+    Номер_должности INT,
+    Кол_во_мест INT,
+    PRIMARY KEY (Номер_отдела, Номер_должности),
+    FOREIGN KEY (Номер_отдела) REFERENCES Отделы (Номер_отдела)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (Номер_должности) REFERENCES Должности (Номер_должности)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
 
--- forWorkLog
-ALTER TABLE История_работы
-DROP CONSTRAINT FK_История_работы_Отделы;
-
-ALTER TABLE История_работы
-DROP CONSTRAINT FK_История_работы_Сотрудники;
-
-ALTER TABLE История_работы
-DROP CONSTRAINT FK_История_работы_Должности;
-
-ALTER TABLE История_работы
-ADD CONSTRAINT FK_История_работы_Отделы
-FOREIGN KEY (Номер_отдела) REFERENCES Отделы (Номер_отдела)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
-
-ALTER TABLE История_работы
-ADD CONSTRAINT FK_История_работы_Сотрудники
-FOREIGN KEY (Номер_сотр) REFERENCES Сотрудники (Номер_сотр)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
-
-ALTER TABLE История_работы
-ADD CONSTRAINT FK_История_работы_Должности
-FOREIGN KEY (Номер_должности) REFERENCES Должности (Номер_должности)
-ON UPDATE CASCADE
-ON DELETE CASCADE;
+CREATE TABLE История_работы (
+    Номер_записи INT PRIMARY KEY,
+    Дата_приема DATE,
+    Дата_увольнения DATE,
+    Номер_отдела INT,
+    Номер_сотр INT,
+    Номер_должности INT,
+    FOREIGN KEY (Номер_отдела) REFERENCES Отделы (Номер_отдела)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (Номер_сотр) REFERENCES Сотрудники (Номер_сотр)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE,
+    FOREIGN KEY (Номер_должности) REFERENCES Должности (Номер_должности)
+        ON UPDATE CASCADE
+        ON DELETE CASCADE
+);
