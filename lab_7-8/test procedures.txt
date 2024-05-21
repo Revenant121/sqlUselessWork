@@ -1,0 +1,1 @@
+CALL add_aircraft('ABC', '{"model": "Boeing 737"}', 5000);
