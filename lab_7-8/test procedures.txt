@@ -1,1 +1,7 @@
 CALL add_aircraft('ABC', '{"model": "Boeing 737"}', 5000);
+
+CALL add_flight('FL123', '2024-12-01 08:00:00+03', '2024-12-01 12:00:00+03', 'SVO', 'JFK', 'Scheduled', 'ABC');
+
+SELECT get_next_ticket_no();
+
+CALL book_tickets(1, '1234567890', 'John Doe', '{"phone": "123-456-7890"}', ARRAY['12A', '12B']);
