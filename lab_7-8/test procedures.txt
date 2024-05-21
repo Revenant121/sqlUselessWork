@@ -1,6 +1,6 @@
 CALL add_aircraft('ABC', '{"model": "Boeing 737"}', 5000);
 
-CALL add_flight('FL123', '2024-12-01 08:00:00+03', '2024-12-01 12:00:00+03', 'SVO', 'JFK', 'Scheduled', 'ABC');
+CALL add_flight('FL123', '2024-12-01 08:00:00+03', '2024-12-01 12:00:00+03', 'SVO', 'BTK', 'Scheduled', 'ABC');
 
 SELECT get_next_ticket_no();
 
@@ -16,3 +16,7 @@ CALL book_tickets(
     1, 'P12345678', 'John Doe', '{"phone": "123-456-7890", "email": "john.doe@example.com"}',
     '12A', 300.00
 );
+
+=============another ver of 5=============
+
+SELECT * FROM get_boarding_pass('0005432000987', 'VALERIY TIKHONOV');
